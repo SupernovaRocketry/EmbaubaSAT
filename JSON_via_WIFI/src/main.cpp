@@ -7,11 +7,11 @@
 #include <Adafruit_BMP280.h>
 #include <Adafruit_MPU6050.h>
 
-//Inicializando o objeto do sensor BMP280 e MPU6050
+// Inicializando o objeto do sensor BMP280 e MPU6050
 Adafruit_BMP280 bmp;
 Adafruit_MPU6050 mpu;
 
-//Definindo as informações da rede Wi-Fi
+// Definindo as informações da rede Wi-Fi
 const char* ssid = "nome";
 const char* password = "senha";
 
@@ -33,7 +33,7 @@ void setup() {
   }
   Serial.println(" Conectado!");
 
-  //Inicializando o sensor BMP280
+  // Inicializando o sensor BMP280
   if (!bmp.begin(0x76)) {
     Serial.println("Erro ao iniciar o sensor BMP280");
     while (1);
@@ -41,16 +41,16 @@ void setup() {
 }
 
 void loop() {
-  //Leitura dos valores dos sensores
+  // Leitura dos valores dos sensores
   float temperatura = bmp.readTemperature();
   float pressao = bmp.readPressure() / 100.0; // Conversão para hPa
   float altitude = bmp.readAltitude(1013.25); // Ajuste de pressão ao nível do mar
 
-  //Leitura do MPU
+  // Leitura do MPU
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
-  //Sensores que não fazem parte deste teste
+  // Sensores que não fazem parte deste teste
   int experimento0 = 250;
   int experimento1 = 2;
   int bateria = 86;
@@ -65,12 +65,12 @@ void loop() {
   //jsonString += "\"payload\": [" + String(experimento0) + "," + String(experimento1) + "]";
   //jsonString += "}";
 
-  StaticJsonDocument<240> jsonBuffer; //Cada par de valores utiliza aproximadamente 16 bytes
-                                      //Cada par nome-vetor utiliza aproximadamente 16*(1+N) bytes, em que N é o comprimento do vetor 
-  //Criando um objeto JsonObject para armazenar os valores dos sensores
+  StaticJsonDocument<240> jsonBuffer; // Cada par de valores utiliza aproximadamente 16 bytes
+                                      // Cada par nome-vetor utiliza aproximadamente 16*(1+N) bytes, em que N é o comprimento do vetor 
+  // Criando um objeto JsonObject para armazenar os valores dos sensores
   JsonObject sensores = jsonBuffer.to<JsonObject>();
 
-  //Adicionando os valores dos sensores ao JsonObject
+  // Adicionando os valores dos sensores ao JsonObject
   sensores["equipe"] = 5242;
   sensores["bateria"] = bateria;
   sensores["temperatura"] = temperatura;
@@ -85,7 +85,7 @@ void loop() {
   sensores["payload"][0] = experimento0;
   sensores["payload"][1] = experimento1;
 
-  //Convertendo o JsonDocument em uma string JSON
+  // Convertendo o JsonDocument em uma string JSON
   String jsonString;
   serializeJson(jsonBuffer, jsonString);
 
