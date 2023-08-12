@@ -3,11 +3,11 @@
 #include <Wire.h>
 #include <HTTPClient.h>
 
-//Defina as informações da sua rede Wi-Fi
-const char* ssid = "Supernova Rocketry";
-const char* password = "foguetaos2";
+//Definindo as informações da rede Wi-Fi
+const char* ssid = "nome";
+const char* password = "senha";
 
-// Defina as informações do seu servidor HTTP
+// Definindo as informações do servidor HTTP
 const char* serverAddress = "https://obsat.org.br";
 const char* endpoint = "/teste_post/envio.php";
 
@@ -24,19 +24,16 @@ void setup() {
     Serial.print(".");
   }
   Serial.println(" Conectado!");
-
 }
 
 void loop() {
   
   String jsonString = "{";
-  jsonString += "\"equipe\": 41,";
-  jsonString += "\"bateria\": 86,";
+  jsonString += "\"equipe\": 1,";
+  jsonString += "\"bateria\": 99,";
   //jsonString += "\"temperatura\":" + String(temperatura) + ",";
-  //jsonString += "\"pressao\":" + String(pressao) + ",";
-  //jsonString += "\"giroscopio\": [" + String(g.gyro.x) + "," + String(g.gyro.y) + "," + String(g.gyro.z) + "],";
   //jsonString += "\"acelerometro\":[" + String(a.acceleration.x) + "," + String(a.acceleration.y) + "," + String(a.acceleration.z) + "],";
-  //jsonString += "\"payload\": [3.1415, 12, 123, 543, \"string\"]";
+  //jsonString += "\"payload\": [3.1415, 2.7182, 0.5772, \"ConstantString\"]";
   jsonString += "}";
 
   // Imprimindo a string JSON no monitor serial
@@ -70,6 +67,6 @@ void loop() {
   // Liberando os recursos HTTP
   httpClient.end();
 
-  //Atraso de 4 segundos
+  //Atraso de 5 segundos
   delay(5000);
 }
